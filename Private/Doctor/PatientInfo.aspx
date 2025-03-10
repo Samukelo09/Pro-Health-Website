@@ -1,0 +1,180 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PatientInfo.aspx.cs" Inherits="prohealth.Private.Doctor.PatientInfo" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+     <header>
+         <style>
+             /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+             .row.content {
+                 height: 550px
+             }
+
+             /* Set gray background color and 100% height */
+             .sidenav {
+                 background-color: #f1f1f1;
+                 height: 100%;
+             }
+
+             /* On small screens, set height to 'auto' for the grid */
+             @media screen and (max-width: 767px) {
+                 .row.content {
+                     height: auto;
+                 }
+             }
+
+             .chart-container {
+                 width: 100%;
+                 height: 0;
+                 padding-bottom: 56.25%; /* Adjust this for your desired aspect ratio */
+                 position: relative;
+             }
+
+                 .chart-container > #Earnings {
+                     position: absolute;
+                     top: 0;
+                     left: 0;
+                     width: 100%;
+                     height: 100%;
+                 }
+                 /* Basic Grid Container */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+    gap: 20px; /* Space between grid items */
+    padding: 20px; /* Padding around grid */
+    max-width: 1200px;
+    margin: auto; /* Center the grid */
+    box-sizing: border-box;
+}
+
+/* Grid Item/Card Styling */
+.grid-item {
+    background: #fff; /* White background */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Light shadow */
+    padding: 20px; /* Inner padding */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+    display: block;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Hover effect for grid items */
+.grid-item:hover {
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Optional responsive font size */
+@media (max-width: 600px) {
+    .grid-item {
+        font-size: 1rem; /* Smaller font size for smaller screens */
+    }
+}
+.imagg {
+    border-radius: 50%; /* Make image round */
+    width: 100px; /* Adjust size for a consistent circle */
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+         </style>
+    </header>
+  
+    <h1>Dashboard</h1>
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-2">
+      <img src="../../Material/M1PROJECTMATERIAL/INAPPPIC/prohealth small banner (200 x 100 px).svg" />
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#section1">Dashboard</a></li>
+        <li><a href="#section2">Loremipsum</a></li>
+        <li><a href="#section3">Loremipsum</a></li>
+        <li><a href="#section3">Loremipsum</a></li>
+      </ul><br>
+    </div>
+    <br>
+    
+    <div class="col-sm-9">
+      <div class="well grid-item">
+          <div style="display:flex">
+              <asp:Image ID="drimage" runat="server" CssClass="imagg" /> 
+              
+          <h1><asp:Label ID="DrNameLabel" runat="server" Text="Label"></asp:Label></h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="well grid-item">
+              <asp:Label ID="lbllblPatientsNo" runat="server" Text="Label"></asp:Label>
+             <h3><asp:Label ID="lblPatientsNo" runat="server" Text="Label"></asp:Label></h3>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well grid-item">
+            <asp:Label ID="lbllblAppointments" runat="server" Text="Label"></asp:Label>
+             <h3><asp:Label ID="lblAppointment" runat="server" Text="Label"></asp:Label></h3>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well grid-item">
+            <asp:Label ID="lbllblDiagnosis" runat="server" Text="Label"></asp:Label>
+             <h3><asp:Label ID="lblDiagnosis" runat="server" Text="Label"></asp:Label></h3>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well grid-item">
+            <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
+             <h3><asp:Label ID="Label4" runat="server" Text="Label"></asp:Label></h3>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-8 ">
+          <div class="well grid-item">
+              <div>
+                  <asp:Label ID="lblEarnings" runat="server" Text="Earnings"></asp:Label>
+              </div>
+              
+              <asp:Chart ID="Earnings" runat="server" DataSourceID="DSBar" Palette="SeaGreen" Height="200px" Width="700px">
+                  <Series>
+                      <asp:Series Name="Series1" YValueMembers="TotalEarnings" XValueMember="Month" YValuesPerPoint="4"></asp:Series>
+                  </Series>
+                  <ChartAreas>
+                      <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
+                  </ChartAreas>
+              </asp:Chart>
+              <asp:SqlDataSource runat="server" ID="DSBar" ConnectionString='<%$ ConnectionStrings:DefaultConnection %>' SelectCommand="SELECT YEAR(Date) AS Year, MONTH(Date) AS Month, SUM(Amount_Paid) AS TotalEarnings FROM Appointment_Correct WHERE Doctor_ID = @DoctorId GROUP BY YEAR(Date), MONTH(Date) ORDER BY Year, Month">
+                  <SelectParameters>
+                      <asp:SessionParameter SessionField="Doctor_ID" Name="DoctorId"></asp:SessionParameter>
+                  </SelectParameters>
+              </asp:SqlDataSource>
+          </div>
+        </div>
+        
+        <div class="col-sm-4">
+          <div class="well grid-item">
+              <asp:Chart ID="PieChart" runat="server" DataSourceID="DSPie" Height="200px" Width="200px">
+                  <Series>
+                      <asp:Series Name="Series1" ChartType="Pie" XValueMember="Count" YValueMembers="Count"></asp:Series>
+                  </Series>
+                  <ChartAreas>
+                      <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
+                  </ChartAreas>
+              </asp:Chart>
+              <asp:SqlDataSource runat="server" ID="DSPie" ConnectionString='<%$ ConnectionStrings:DefaultConnection %>' SelectCommand="SELECT Patient.Patient_Sex, COUNT(*) AS Count FROM Appointment_Correct INNER JOIN Patient ON Appointment_Correct.Patient_ID = Patient.Patient_Id WHERE (Appointment_Correct.Doctor_ID = @DoctorId) GROUP BY Patient.Patient_Sex">
+                  <SelectParameters>
+                      <asp:SessionParameter SessionField="Doctor_ID" Name="DoctorId"></asp:SessionParameter>
+                  </SelectParameters>
+              </asp:SqlDataSource>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+</asp:Content>
