@@ -1,0 +1,242 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="prohealth.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - My ASP.NET Application</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Main font stack */
+        /* Heading 1 */
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Heading 2 */
+        h2 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Heading 3 */
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+        }
+
+        /* Heading 4 */
+        h4 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+        }
+
+        /* Body text */
+        p, span {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 400;
+        }
+        /* Button Style */
+.modern-btn {
+    background: #38b6f4; /* Green gradient */
+    color: #fff; /* Text color */
+     /* Font size */
+    font-weight: 600; /* Bold text */
+    padding: 12px 24px; /* Padding for size */
+    border: none; /* Remove border */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    transition: all 0.3s ease; /* Smooth transitions */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    outline: none; /* Remove outline */
+}
+
+/* Hover Effect */
+.modern-btn:hover {
+    
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+    transform: translateY(-2px); /* Lifted effect */
+}
+
+/* Active Effect */
+.modern-btn:active {
+    transform: translateY(1px); /* Pressed down effect */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* Reduced shadow */
+}
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Label styling */
+.input-container label {
+    
+    color: #666;
+    margin-bottom: 0.2rem;
+}
+
+/* Input styling */
+.input-container input {
+    padding: 0.75rem;
+    
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+/* Focus effect */
+.input-container input:focus {
+    border-color: #4A90E2;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(74, 144, 226, 0.2);
+}
+
+/* Placeholder color */
+.input-container input::placeholder {
+    color: #aaa;
+}
+
+/* Input hover effect */
+.input-container input:hover {
+    border-color: #b3b3b3;
+}
+
+    </style>
+
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />               
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:white;">
+            <div class="container-fluid">          
+                <div class="navbar-header">                    
+                    <a class="navbar-brand" runat="server" href="~/" style="color:black; font-size: larger; font-weight: bold;">Prohealth Medical</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav nav-typo">
+                        <li class="nav-typography-pages"><a runat="server" href="~/" style="color:black;">Home</a></li>
+                        <li class="nav-typography-pages"><a runat="server" href="~/About" style="color:black">About</a></li>
+                        <li class="nav-typography-pages"><a runat="server" href="~/Contact" class="nav-typography-pages" style="color:black">Contact</a></li>
+                        <li class="nav-typography-pages"><a runat="server" href="~/Private/ManageDetails" visible="false" id="ddl" style="color:black">Manage Details</a></li>
+                        <li class="nav-typography-pages"><a runat="server" href="~/Private/addappointment" visible="false" id="addappt" style="color:black">Add Appointment</a></li>
+                        <li class="nav-typography-pages"><a runat="server" href="~/Private/manageappointments.aspx" visible="false" id="view" style="color:black">View Appointments</a></li>
+                        <li class="nav-typography-pages"><a runat="server" href="~/Private/Doctor/ViewSchedule.aspx" visible="false" id="viewshedule" style="color:black">View Schedule</a></li>
+                        <li class="nav-typography-pages"><a runat="server" href="~/Private/Doctor/PatientInfo.aspx" visible="false" id="dash" style="color:black">Dashboard</a></li>
+                        <li class="nav-typography-pages"><a runat="server" href="~/Private/Owner/Reports.aspx" visible="false" id="Reports" style="color:black">Reports</a></li>
+                    </ul>
+                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                        <AnonymousTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                   <li class="nav-typography-pages"><a runat="server" href="~/Account/Register" style="color:black"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                                    <li class="nav-typography-pages"><a runat="server" href="~/Account/Login" style="color:black"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                            </ul>
+                            </div>
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="nav-typography-pages"><a runat="server" href="~/Account/Manage" title="Manage your account" style="color:black">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                <li class="nav-typography-pages">
+                                    <li class="nav-item dropdown" />
+                                    <a class="nav=link dropdown-toggle" data-toggle="dropdown" href="#" runat="server" style="color:black"><span class="glyphicon glyphicon-user">&nbsp</span> Profile<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" style="color:black"><asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" /></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </LoggedInTemplate>
+                    </asp:LoginView>
+                </div>
+            </div>
+        </div>
+        <div class="conntainer body-content"> <%-- culprit --%>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+    <footer class="footer-bs">
+        <div class="row">
+        	<div class="col-md-3 footer-brand animated fadeInLeft">
+            	<img src="Material/M1PROJECTMATERIAL/INAPPPIC/ProMed-Transparent.png" width="100px" height="100px" />
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>© 2024 Prohealth Medical, All rights reserved</p>
+            </div>
+        	<div class="col-md-4 footer-nav animated fadeInUp">
+            	<h4 style="color:white">Menu —</h4>
+            	<div class="col-md-6">
+                    <ul class="pages">
+                        <li><a href="#">Help</a></li>
+                        
+                    </ul>
+                </div>
+            	<div class="col-md-6">
+                    <ul class="list">
+                        <li><a href="~/About">About Us</a></li>
+                        <li><a href="~/Contact">Contacts</a></li>
+                        <li><a href="#">Terms & Condition</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        	<div class="col-md-2 footer-social animated fadeInDown">
+            	<h4 style="color:white">Follow Us</h4>
+            	<ul>
+                	<li><a href="#">Facebook</a></li>
+                	<li><a href="#">Twitter</a></li>
+                	<li><a href="#">Instagram</a></li>
+                	<li><a href="#">RSS</a></li>
+                </ul>
+            </div>
+        	<div class="col-md-3 footer-ns animated fadeInRight">
+            	<h4 style="color:white">Help desk</h4>
+                <p>Ask questions.</p>
+                <p>
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Query...">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-envelope"></span></button>
+                      </span>
+                    </div><!-- /input-group -->
+                 </p>
+            </div>
+        </div>
+    </footer>
+    
+
+</div>
+            
+        </div>
+    </form>
+</body>
+</html>
